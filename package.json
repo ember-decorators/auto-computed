@@ -1,5 +1,5 @@
 {
-  "name": "auto-computed",
+  "name": "@ember-decorators/auto-computed",
   "version": "0.0.0",
   "description": "The default blueprint for ember-cli addons.",
   "keywords": [

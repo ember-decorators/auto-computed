@@ -1,11 +1,11 @@
-# auto-computed
+# @ember-decorators/auto-computed
 
 This README outlines the details of collaborating on this Ember addon.
 
 ## Installation
 
 * `git clone <repository-url>` this repository
-* `cd auto-computed`
+* `cd @ember-decorators/auto-computed`
 * `yarn install`
 
 ## Running
