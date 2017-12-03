@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: '@ember-decorators/auto-computed'
+  name: 'auto-computed'
 };
