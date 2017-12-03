@@ -1,15 +1,15 @@
 # @ember-decorators/auto-computed
 
-This README outlines the details of collaborating on this Ember addon.
+Note: If you are using getter and setter functions (the recommended way), please use the `@computed` key from [ember-decorators](https://github.com/ember-decorators/ember-decorators)
 
 ### Installation
 
 `ember install @ember-decorators/auto-computed`
 
-If you're using **ember-auto-computed** in an addon, pass the `-S` option to save
+If you're using **@ember-decorators/auto-computed** in an addon, pass the `-S` option to save
 this as a `dependency` as opposed to the default `devDependency`:
 
-`ember install -S ember-auto-computed`
+`ember install -S @ember-decorators/auto-computed`
 
 ### Application Usage
 
