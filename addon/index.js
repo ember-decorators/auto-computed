@@ -1,5 +1,3 @@
-import Ember from 'ember';
-import { assert } from '@ember/debug';
 import { decoratorWithParams } from './utils/decorator-wrapper';
 import macroComputed from 'ember-macro-helpers/computed';
 import extractValue from './utils/extract-value';
@@ -27,7 +25,6 @@ import extractValue from './utils/extract-value';
  * @param {...String} propertyNames - List of property keys this computed is dependent on
  */
 const computed = decoratorWithParams(function(_target, key, desc, params) {
-  assert(`ES6 property getters/setters only need to be decorated once, '${key}' was decorated on both the getter and the setter`, !(desc.value instanceof Ember.ComputedProperty));
   return macroComputed(...params, extractValue(desc));
 });
 

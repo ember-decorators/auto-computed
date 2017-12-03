@@ -54,3 +54,20 @@ test('works with es6 class', function(assert) {
   let obj = new Foo();
   get(obj, 'fullName');
 });
+
+test('works properly without params', function(assert) {
+  let callCount = 0;
+  let obj = {
+    first: 'rob',
+    last: 'jackson',
+
+    @autoComputed
+    name() {
+      callCount++;
+    }
+  };
+
+  get(obj, 'name');
+
+  assert.equal(callCount, 1);
+});
