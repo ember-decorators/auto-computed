@@ -1,5 +1,5 @@
 import { get, set } from '@ember/object';
-import autoComputed from 'auto-computed';
+import autoComputed from '@ember-decorators/auto-computed';
 import { module, test } from 'qunit';
 
 module('auto computed properties');

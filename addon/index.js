@@ -1,6 +1,6 @@
-import { decoratorWithParams } from './utils/decorator-wrapper';
+import { decoratorWithParams } from '@ember-decorators/utils/decorator-wrappers';
 import macroComputed from 'ember-macro-helpers/computed';
-import extractValue from './utils/extract-value';
+import extractValue from '@ember-decorators/utils/extract-value';
 
 /**
  * Decorator that turns a function into a computed property. 
