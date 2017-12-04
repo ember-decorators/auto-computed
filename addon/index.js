@@ -8,7 +8,7 @@ import extractValue from '@ember-decorators/utils/extract-value';
  *
  * ```javascript
  * import Component from '@ember/component';
- * import autoComputed from 'auto-computed';
+ * import autoComputed from '@ember-decorators/auto-computed';
  *
  * export default class UserProfileComponent extends Component {
  *   first = 'John';

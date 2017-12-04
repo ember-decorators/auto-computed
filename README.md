@@ -33,7 +33,7 @@ You replace it with this:
 
 ```javascript
 import Component from '@ember/component';
-import autoComputed from 'auto-computed';
+import autoComputed from '@ember-decorators/auto-computed';
 
 export default class ExampleComponent extends Component {
   @autoComputed('someKey', 'otherKey')
