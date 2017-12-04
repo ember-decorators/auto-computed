@@ -36,6 +36,8 @@ test('dependent key changes invalidate the computed property', function(assert) 
 });
 
 test('passes dependent keys into function as arguments with getters/setters', function(assert) {
+  assert.expect(3);
+
   let obj = {
     first: 'rob',
     last: 'jackson',
@@ -46,11 +48,22 @@ test('passes dependent keys into function as arguments with getters/setters', fu
         assert.equal(first, 'rob');
         assert.equal(last, 'jackson');
         return `${this.first} ${this.last}`;
+      },
+      set(name) {
+        const [first, last] = name.split(' ');
+        setProperties(this, { first, last });
+        // for now, this return is required with computed getters/setters
+        return `${this.first} ${this.last}`;
       }
     }
   };
 
   get(obj, 'name');
+
+  let expectedName = 'wierd al';
+  set(obj, 'fullName', expectedName);
+
+  assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
 });
 
 test('works with es6 class', function(assert) {
@@ -109,6 +122,8 @@ test('works with es6 class object getter/setter', function(assert) {
       set(name) {
         const [first, last] = name.split(' ');
         setProperties(this, { first, last });
+        // for now, this return is required with computed getters/setters
+        return `${this.first} ${this.last}`;
       }
     }
   }
