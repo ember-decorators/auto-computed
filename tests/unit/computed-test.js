@@ -1,4 +1,4 @@
-import { get, set } from '@ember/object';
+import { get, set, setProperties } from '@ember/object';
 import autoComputed from '@ember-decorators/auto-computed';
 import { module, test } from 'qunit';
 
@@ -91,7 +91,7 @@ test('works properly without params', function(assert) {
 });
 
 test('works with es6 class object getter/setter', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
 
   class Foo {
     constructor() {
@@ -104,10 +104,20 @@ test('works with es6 class object getter/setter', function(assert) {
       get(first, last) {
         assert.equal(first, 'rob');
         assert.equal(last, 'jackson');
+        return `${this.first} ${this.last}`;
+      },
+      set(name) {
+        const [first, last] = name.split(' ');
+        setProperties(this, { first, last });
       }
     }
   }
 
   let obj = new Foo();
   get(obj, 'fullName');
+
+  let expectedName = 'wierd al';
+  set(obj, 'fullName', expectedName);
+
+  assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
 });
