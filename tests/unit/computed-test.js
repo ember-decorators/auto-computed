@@ -35,6 +35,24 @@ test('dependent key changes invalidate the computed property', function(assert) 
   assert.equal(get(obj, 'name'), 'al jackson');
 });
 
+test('passes dependent keys into function as arguments with getters/setters', function(assert) {
+  let obj = {
+    first: 'rob',
+    last: 'jackson',
+
+    @autoComputed('first', 'last')
+    name: {
+      get(first, last) { 
+        assert.equal(first, 'rob');
+        assert.equal(last, 'jackson');
+        return `${this.first} ${this.last}`;
+      }
+    }
+  };
+
+  get(obj, 'name');
+});
+
 test('works with es6 class', function(assert) {
   assert.expect(2);
 
@@ -70,4 +88,26 @@ test('works properly without params', function(assert) {
   get(obj, 'name');
 
   assert.equal(callCount, 1);
+});
+
+test('works with es6 class object getter/setter', function(assert) {
+  assert.expect(2);
+
+  class Foo {
+    constructor() {
+      this.first = 'rob';
+      this.last = 'jackson';
+    }
+
+    @autoComputed('first', 'last')
+    fullName = {
+      get(first, last) {
+        assert.equal(first, 'rob');
+        assert.equal(last, 'jackson');
+      }
+    }
+  }
+
+  let obj = new Foo();
+  get(obj, 'fullName');
 });
