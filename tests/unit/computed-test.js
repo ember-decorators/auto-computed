@@ -36,14 +36,15 @@ test('dependent key changes invalidate the computed property', function(assert) 
 });
 
 test('passes dependent keys into function as arguments with getters/setters', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
+  let callCount = 0;
 
   let obj = {
     first: 'rob',
     last: 'jackson',
 
     @autoComputed('first', 'last')
-    name: {
+    fullName: {
       get(first, last) { 
         assert.equal(first, 'rob');
         assert.equal(last, 'jackson');
@@ -52,17 +53,19 @@ test('passes dependent keys into function as arguments with getters/setters', fu
       set(name) {
         const [first, last] = name.split(' ');
         setProperties(this, { first, last });
+        callCount++;
         // for now, this return is required with computed getters/setters
         return `${this.first} ${this.last}`;
       }
     }
   };
 
-  get(obj, 'name');
+  get(obj, 'fullName');
 
   let expectedName = 'wierd al';
   set(obj, 'fullName', expectedName);
 
+  assert.equal(callCount, 1, 'set was called');
   assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
 });
 
@@ -104,7 +107,8 @@ test('works properly without params', function(assert) {
 });
 
 test('works with es6 class object getter/setter', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
+  let callCount = 0;
 
   class Foo {
     constructor() {
@@ -122,6 +126,7 @@ test('works with es6 class object getter/setter', function(assert) {
       set(name) {
         const [first, last] = name.split(' ');
         setProperties(this, { first, last });
+        callCount++;
         // for now, this return is required with computed getters/setters
         return `${this.first} ${this.last}`;
       }
@@ -134,5 +139,6 @@ test('works with es6 class object getter/setter', function(assert) {
   let expectedName = 'wierd al';
   set(obj, 'fullName', expectedName);
 
+  assert.equal(callCount, 1, 'set was called');
   assert.strictEqual(get(obj, 'fullName'), expectedName, 'return value of getter is new value of property');
 });
