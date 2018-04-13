@@ -1,6 +1,10 @@
-import { decoratorWithParams } from '@ember-decorators/utils/decorator-wrappers';
+import { computedDecoratorWithParams } from '@ember-decorators/utils/computed';
 import macroComputed from 'ember-macro-helpers/computed';
-import extractValue from '@ember-decorators/utils/extract-value';
+
+function extractValue(desc) {
+  return desc.value ||
+    (typeof desc.initializer === 'function' && desc.initializer());
+}
 
 /**
  * Decorator that turns a function into a computed property. 
@@ -24,7 +28,7 @@ import extractValue from '@ember-decorators/utils/extract-value';
  * @function
  * @param {...String} propertyNames - List of property keys this computed is dependent on
  */
-const computed = decoratorWithParams(function(_target, key, desc, params) {
+const computed = computedDecoratorWithParams(function(_target, key, desc, params) {
   return macroComputed(...params, extractValue(desc));
 });
 
